@@ -18,10 +18,7 @@ var commentRoutes    = require("./routes/comments"),
     postsRoutes = require("./routes/posts"),
     indexRoutes      = require("./routes/index");
 
-mongoose.connect("mongodb://dpt:Service85@ds157247.mlab.com:57247/ericasblog"); 
-//{useNewUrlParser: true});
-//var url = process.env.DATABASEURL || "mongodb://localhost:27017/erica_blog";
-//mongoose.connect(url, {useNewUrlParser: true});
+mongoose.connect(process.env.DATABASEURL);
 
 app.use(bodyParser.urlencoded({extended:true}));
 app.set("view engine", "ejs");
