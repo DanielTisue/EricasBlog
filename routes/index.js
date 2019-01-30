@@ -69,7 +69,7 @@ router.get("/logout", function(req, res) {
   req.flash("success", "Successfully Logged Out!");
   res.redirect("/posts");
 });
-
+//
 // forgot password
 router.get('/forgot', function(req, res) {
   res.render('forgot');
