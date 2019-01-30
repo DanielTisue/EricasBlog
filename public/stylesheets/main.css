@@ -1,5 +1,11 @@
 .thumbnail img {
-    width: 100%;   
+    width: 206px !important;
+    height: 206px !important;
+}
+
+#show {
+	width: 100% !important;
+	height: 100% !important;
 }
 
 .thumbnail{
