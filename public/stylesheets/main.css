@@ -1609,6 +1609,11 @@ input, select, textarea {
 		}
 
 		@media screen and (max-width: 480px) {
+			
+			.image.object img {
+				height: 100%;
+				width: 100%;
+			}
 
 			.row {
 				display: flex;
@@ -2125,6 +2130,11 @@ input, select, textarea {
 		}
 
 			.image.main img {
+				width: 100%;
+			}
+			
+			.image.object img {
+				height: 100%;
 				width: 100%;
 			}
 
@@ -2692,15 +2702,15 @@ input, select, textarea {
 		}
 
 			#banner .image img {
-				height: 100%;
+				/*height: 100%;*/
 				-moz-object-fit: cover;
 				-webkit-object-fit: cover;
 				-ms-object-fit: cover;
-				object-fit: cover;
+				/*object-fit: cover;*/
 				-moz-object-position: center;
 				-webkit-object-position: center;
 				-ms-object-position: center;
-				object-position: center;
+				/*object-position: center;*/
 				width: 100%;
 			}
 
@@ -2739,9 +2749,9 @@ input, select, textarea {
 					-ms-flex-shrink: 0;
 					flex-shrink: 0;
 					margin: 0 0 4em 0;
-					height: 25em;
-					max-height: 50vh;
-					min-height: 18em;
+					/*height: 25em;*/
+					/*max-height: 50vh;*/
+					/*min-height: 18em;*/
 					width: 100%;
 				}
 
@@ -2749,10 +2759,10 @@ input, select, textarea {
 
 		@media screen and (orientation: portrait) and (max-width: 480px) {
 
-			#banner .image {
-				max-height: 35vh;
-			}
-
+			/*#banner .image {*/
+				/*max-height: 35vh;*/
+			/*}*/
+			
 		}
 		
 	
