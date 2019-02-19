@@ -9,7 +9,7 @@ var crypto = require("crypto");
 
 
 router.get("/", function(req, res){
-    res.render("landing");
+    res.render("landing2");
 });
 
 router.get("/about", function(req, res){
@@ -190,7 +190,7 @@ router.post('/reset/:token', function(req, res) {
       var smtpTransport = nodemailer.createTransport({
         service: 'Gmail', 
         auth: {
-          user: 'learntocodeinfo@gmail.com',
+          user: 'ericamauriciotexasliving@gmail.com',
           pass: process.env.GMAILPW
         }
       });
