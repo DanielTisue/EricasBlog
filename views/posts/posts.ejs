@@ -24,7 +24,7 @@
         <% posts.forEach(function(post){ %>
             <div class="col-md-3 col-sm-6">
                 <div class="thumbnail">
-                    <img src="<%= post.image %>">
+                    <img src="<%= post.image.url %>">
                     <div class="caption">
                     <h4><%= post.name %>- <em><%= moment(post.createdAt).format("M/D/Y") %></em></h4>
                     <div class="description">

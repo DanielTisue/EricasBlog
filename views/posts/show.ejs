@@ -17,12 +17,12 @@
     <div class="row">
         <div class="col-md-9 col-md-offset-1">
             <div class="thumbnail">
-                <img id="show" class="img img-responsive" src="<%= post.image %>">
+                <img id="show" class="img img-responsive" src="<%= post.image.url %>">
                 <div class="caption-full">
                     <h4><a><%= post.name %></a></h4>
                     <p><%= post.description %></p>
                     <p>
-                        <em>Submitted By: <strong>Erica Mauricio</strong>...<%= moment(post.createdAt).format("dddd, MMMM Do YYYY") %></em>
+                        <em>Submitted By: <strong>Erica Mauricio</strong>...<%= moment(post.createdAt).format("M/D/Y") %></em>
                     </p>
                     <% if(currentUser && currentUser.isAdmin){ %>
                         <a class="button small" href="/posts/<%= post._id %>/edit">Edit</a>
@@ -40,9 +40,8 @@
                 <% post.comments.forEach(function(comment){ %>
                     <div class="row">
                         <div class="col-md-12">
-                            <strong><%= comment.author.username %></strong>
-                            <!-- add .username for author above -->
-                            <span class="pull-right"><%= moment(comment.createdAt).fromNow() %></span>
+                            <strong><%= comment.author.username %> - </strong>
+                            <span style="text-align: right"><%= moment(post.createdAt).format("M/D/Y") %></span>
                             <p>
                                 <%= comment.text %> 
                             </p>
