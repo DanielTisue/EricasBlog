@@ -1,0 +1,27 @@
+<% include ../partials/header %>
+<div class="container">
+    <header id="header">
+	</header>
+</div>
+    <div class="row">
+        <div style="width: 30%; margin: 25px auto;">
+            <h3 style="text-align: center">Create a New Post!</h3>
+            <form action="/posts" method="POST">
+                <div class="form-group">
+                    <input class="form-control" type="text" name="name" placeholder="name">
+                </div>
+                <div class="form-group">
+                    <input class="form-control" type="text" name="image" placeholder="image url">
+                </div>
+                <div class="form-group">
+                    <!--<input class="form-control" type="text" name="description" placeholder="description">-->
+                    <textarea class="form-control" name="description" placeholder="Write Here"></textarea>
+                </div>
+                <div class="form-group">
+                    <button>Submit!</button>
+                </div>
+            </form>
+            <a href="/posts" class="button small">Go Back</a>
+        </div>
+    </div>
+<% include ../partials/footer %>

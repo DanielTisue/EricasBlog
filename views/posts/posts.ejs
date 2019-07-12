@@ -1,0 +1,49 @@
+<% include ../partials/header %>
+<div class="container">
+    
+    <header id="header">
+        <div class="container">
+			<h1><strong>Texas Living...</strong> Ericas' Way!</h1>
+			<span></span>
+			<% if(currentUser && currentUser.isAdmin){ %>
+            <p>
+            <a href="/posts/new" class="button primary" >Add New Posts</a>
+            </p>
+            <% } %>
+		</div>
+	</header>
+<div>
+    <h2>Check out my most recent posts...</h2>
+</div>
+<div>
+ <p>
+         
+</p>   
+</div>
+    <div class="row text-center" style="display:flex; flex-wrap: wrap">
+        <% posts.forEach(function(post){ %>
+            <div class="col-md-3 col-sm-6">
+                <div class="thumbnail">
+                    <img src="<%= post.image %>">
+                    <div class="caption">
+                    <h4><%= post.name %>- <em><%= moment(post.createdAt).format("M/D/Y") %></em></h4>
+                    <div class="description">
+                       <p><%- post.description.substring(0, 75) %></p> 
+                    </div>
+                    </div>
+                    <p>
+                        <a class="button primary" href="/posts/<%= post._id %>">Read More...</a>
+                    </p>
+                </div>
+            </div> 
+        <% }); %> 
+        </div>
+    </div>
+    
+</div>
+
+
+
+
+
+<% include ../partials/footer %>

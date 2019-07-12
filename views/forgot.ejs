@@ -1,0 +1,23 @@
+<% include ./partials/header %>
+<div class="container">
+    <header id="header">
+	</header>
+</div>
+<div class="row">
+	<div class="col-md-12">
+		<div style="width: 30%; margin: 25px auto;">
+		<form action="/forgot" method="POST">
+			<h3><legend>Forgot Password</legend></h3>
+			<div class="form-group">
+				<label for="email"></label>
+				<input type="email" name="email" autofocus class="form-control" placeholder="enter email here">
+			</div>
+			<div class="form-group">
+				<input type="submit" class="button" value="Reset Password">
+			</div>
+		</form>
+		<a href="/posts" class="button small">Go Back</a>
+		</div>
+	</div>
+</div>
+<% include ./partials/footer %>

@@ -1,0 +1,66 @@
+<% include ../partials/header %>
+<div class="container">
+    <header id="header">
+        <div class="container">
+			<h1><strong>Texas Living...</strong> Ericas' Way!</h1>
+			<span></span>
+		</div>
+	</header>
+	<div>
+ <p>
+         
+         
+          
+     
+ </p>   
+</div>
+    <div class="row">
+        <div class="col-md-9 col-md-offset-1">
+            <div class="thumbnail">
+                <img id="show" class="img img-responsive" src="<%= post.image %>">
+                <div class="caption-full">
+                    <h4><a><%= post.name %></a></h4>
+                    <p><%= post.description %></p>
+                    <p>
+                        <em>Submitted By: <strong>Erica Mauricio</strong>...<%= moment(post.createdAt).format("dddd, MMMM Do YYYY") %></em>
+                    </p>
+                    <% if(currentUser && currentUser.isAdmin){ %>
+                        <a class="button small" href="/posts/<%= post._id %>/edit">Edit</a>
+                        <form style="display: inline" action="/posts/<%= post._id %>?_method=DELETE" method="POST"> 
+                            <button class="button small" type="Delete">Delete</button>
+                        </form>
+                    <% } %>
+                </div>
+            </div>
+            <div class="well">
+                <div class="text-right">
+                    <a class="button primary" href="/posts/<%= post._id %>/comments/new">Add New Comment</a>
+                </div>
+                <hr>
+                <% post.comments.forEach(function(comment){ %>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <strong><%= comment.author.username %></strong>
+                            <!-- add .username for author above -->
+                            <span class="pull-right"><%= moment(comment.createdAt).fromNow() %></span>
+                            <p>
+                                <%= comment.text %> 
+                            </p>
+                            
+                        <% if(currentUser && comment.author.id.equals(currentUser._id)){ %>
+                            <a class="button small" href="/posts/<%= post._id %>/comments/<%= comment._id %>/edit">Edit</a>
+                        <% } %>
+                        <% if(currentUser && comment.author.id.equals(currentUser._id) || currentUser && currentUser.isAdmin){ %>
+                            <form style="display: inline" action="/posts/<%= post._id %>/comments/<%= comment._id %>?_method=DELETE" method="POST">
+                                <input type="submit" class="button small" value="Delete">
+                            </form>
+                        <% } %>
+                        </div>
+                    </div>
+                <% }) %>
+            </div>
+        </div>
+    </div>
+</div>
+
+<% include ../partials/footer %>
