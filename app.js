@@ -18,7 +18,15 @@ var commentRoutes    = require("./routes/comments"),
     postsRoutes = require("./routes/posts"),
     indexRoutes      = require("./routes/index");
 
-mongoose.connect(process.env.DATABASEURL);
+//mongoose.connect(process.env.DATABASEURL);
+mongoose.connect("mongodb://localhost:27017/erica_blog", {useNewUrlParser: true});
+mongoose.connection
+    .once("open", function () {
+        console.log("Connection to DB made");
+    })
+    .on("error", function (error) {
+        console.log("Connection error:", error);
+    });
 
 app.use(bodyParser.urlencoded({extended:true}));
 app.set("view engine", "ejs");
@@ -52,6 +60,6 @@ app.use("/posts", postsRoutes);
 app.use("/posts/:id/comments", commentRoutes);
 
 
-app.listen(process.env.PORT, process.env.IP, function(){
+app.listen(3000, function(){
     console.log("Server Started!");
 });
