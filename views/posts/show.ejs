@@ -27,7 +27,7 @@
                     <% if(currentUser && currentUser.isAdmin){ %>
                         <a class="button small" href="/posts/<%= post._id %>/edit">Edit</a>
                         <form style="display: inline" action="/posts/<%= post._id %>?_method=DELETE" method="POST"> 
-                            <button class="button small" type="Delete">Delete</button>
+                            <input class="button small" type="submit" value="Delete">
                         </form>
                     <% } %>
                 </div>
