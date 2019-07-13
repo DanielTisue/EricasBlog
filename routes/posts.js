@@ -109,7 +109,7 @@ router.get("/:id/edit", middleware.isAdmin, function(req, res){
 // UPDATE POST ROUTE
 router.put("/:id", middleware.isAdmin, upload.single("image"), function(req, res){
     // find and update the correct post
-    Post.findByIdAndUpdate(req.params.id, req.body.post, async function(err, updatedPost){
+    Post.findByIdAndUpdate(req.params.id, req.body.post, async function(err, post){
       if(err){
           console.log(err);
           req.flash("error", "Something went wrong:" + err.message);
@@ -117,16 +117,16 @@ router.put("/:id", middleware.isAdmin, upload.single("image"), function(req, res
       } else {
            if (req.file) {
              try {
-               await cloudinary.v2.uploader.destroy(
-                 post.image.public_id
-               );
+               await cloudinary.v2.uploader.destroy(post.image.public_id);
                post.image.public_id = req.file.public_id;
                post.image.url = req.file.secure_url;
                await post.save();
              } catch (err) {
+                 console.log(err);
                return res.redirect("back");
              }
            }
+           //console.log(updatedPost);
            req.flash("success", "Post successfully updated!");
           //redirect somewhere(show page)
           res.redirect("/posts/" + req.params.id);
@@ -136,17 +136,23 @@ router.put("/:id", middleware.isAdmin, upload.single("image"), function(req, res
 
 // DESTROY POST ROUTE
 router.delete("/:id", middleware.isAdmin, function(req, res){
-   Post.findById(req.params.id, async function(err){
+   Post.findById(req.params.id, async function(err, post){
       if(err) {
           req.flash("error", "UH OH...Something went wrong:" + err.message);
           res.redirect("/posts");
       } else {
-          await cloudinary.v2.uploader.destroy(post.image.public_id);
-          await post.remove();
-          req.flash("success", "Blog Post Successfully Deleted!");
-          res.redirect("/posts");
-      }
+          try{ 
+              await cloudinary.v2.uploader.destroy(post.image.public_id);
+            await post.remove();
+          } catch(err) {
+            console.log(err);
+            return res.redirect("back");
+          }  
+            req.flash("success", "Blog Post Successfully Deleted!");
+            res.redirect("/posts");
+          }
+      });
    });
-});
+
 
 module.exports = router;
