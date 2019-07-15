@@ -18,8 +18,8 @@ var commentRoutes    = require("./routes/comments"),
     postsRoutes = require("./routes/posts"),
     indexRoutes      = require("./routes/index");
 
-//mongoose.connect(process.env.DATABASEURL);
-mongoose.connect("mongodb://localhost:27017/erica_blog", {useNewUrlParser: true});
+mongoose.connect(process.env.DATABASEURL, { useNewUrlParser: true });
+//mongoose.connect("mongodb://localhost:27017/erica_blog", {useNewUrlParser: true});
 mongoose.connection
     .once("open", function () {
         console.log("Connection to DB made");

@@ -32,9 +32,9 @@ const upload = multer({ storage });
 
 //Show all posts
 router.get("/", function(req, res){
-  var perPage = 8,
-        pageQuery = parseInt(req.query.page),
-        pageNumber = pageQuery ? pageQuery : 1;
+  var perPage = 8;
+  var pageQuery = parseInt(req.query.page);
+  var pageNumber = pageQuery ? pageQuery : 1;
   Post.find({}).skip((perPage * pageNumber) - perPage).limit(perPage).exec( function(err, allPosts){
       Post.count().exec(function(err, count) {
         if (err) {
