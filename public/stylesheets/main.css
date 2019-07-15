@@ -27,7 +27,6 @@
 		.navbar-brand{
 			display: none !important;
 		} 
-
 }
 
 	@media screen and (max-width: 780px){
@@ -56,6 +55,7 @@
    margin-right: 10px !important;;   
 }
 	}
+
 	@media screen and (max-width: 480px){
 		.navbar-brand {
 			display: none !important;
