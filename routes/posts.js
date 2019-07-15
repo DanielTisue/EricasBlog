@@ -32,12 +32,21 @@ const upload = multer({ storage });
 
 //Show all posts
 router.get("/", function(req, res){
-  Post.find({}, function(err, allPosts){
-        if(err){
-            console.log(err);
+  var perPage = 8,
+        pageQuery = parseInt(req.query.page),
+        pageNumber = pageQuery ? pageQuery : 1;
+  Post.find({}).skip((perPage * pageNumber) - perPage).limit(perPage).exec( function(err, allPosts){
+      Post.count().exec(function(err, count) {
+        if (err) {
+          console.log(err);
         } else {
-             res.render("posts/posts", {posts: allPosts}); 
+          res.render("posts/posts", { 
+            posts: allPosts, 
+            current: pageNumber,
+            pages: Math.ceil(count / perPage)
+          });
         }
+      });
     });
  });
 
