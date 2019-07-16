@@ -59,9 +59,9 @@ app.use("/", indexRoutes);
 app.use("/posts", postsRoutes);
 app.use("/posts/:id/comments", commentRoutes);
 
-// app.listen(process.env.PORT, process.env.IP, () => {
-//   console.log("Server Started!");
-// });
-app.listen(3000, function(){
-    console.log("Server Started!");
+app.listen(process.env.PORT, process.env.IP, () => {
+  console.log("Server Started!");
 });
+// app.listen(3000, function(){
+//     console.log("Server Started!");
+// });
