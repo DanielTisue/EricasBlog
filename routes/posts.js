@@ -51,37 +51,75 @@ router.get("/", function(req, res){
  });
 
 //CREATE - add new post to DB
-router.post("/", middleware.isAdmin, upload.single("image"), function(req, res){
-    // set image req.
-   req.body.image = {
-     url: req.file.secure_url,
-     public_id: req.file.public_id
-   };
-   req.body.createdAt = {
-       type: Date,
-       default: Date.now
-   }
-    // get data from form and add to posts array
-    var name = req.body.name;
-    var image = req.body.image;
-    var description = req.body.description;
-    var author = {
-        id: req.user._id,
-        username: req.user.username,
-    };
-    var date = req.body.createdAt;
-    var newPost = {name: name, image: image, description: description, date: date, author:author};
-    //create new post
-    Post.create(newPost, function(err, newlyCreated){
-        if(err){
-            console.log(err);
-        } else {
-            console.log(newlyCreated);
-            req.flash("success", "Blog post Successfully Created!");
-            return res.redirect("/posts");
-        }
-    });
+router.post("/", middleware.isAdmin, upload.single("image"), async function(req, res){
+     if (req.file) {
+        // upload file to cloudinary
+        await cloudinary.v2.uploader.upload(req.file.path, function (err) {
+            if (err) {
+                req.flash("error", "Only image file types are supported");
+                return res.redirect("back");
+            } else {
+                // let result = uploadedImage;
+                // assign to post object
+                req.body.post.image = {
+                      url: req.file.secure_url,
+                      public_id: req.file.public_id
+                    };
+                    req.body.post.createdAt = {
+                        type: Date,
+                        default: Date.now
+                    }
+            }
+        });
+    }
+ 
+    try {
+        // add author object to post on req.body
+        req.body.post.author = {
+            id: req.user._id,
+            username: req.user.username
+        };
+        // create post from updated req.body.post object
+        var post = await Post.create(req.body.post);
+        // redirect to show page
+        res.redirect(`/posts/${post.id}`);
+    } catch (err) {
+        // flash error and redirect to previous page
+        req.flash('error', err.message);
+        res.redirect('back');
+    }
+ 
 });
+    // set image req.
+//    req.body.image = {
+//      url: req.file.secure_url,
+//      public_id: req.file.public_id
+//    };
+//    req.body.createdAt = {
+//        type: Date,
+//        default: Date.now
+//    }
+//     // get data from form and add to posts array
+//     var name = req.body.name;
+//     var image = req.body.image;
+//     var description = req.body.description;
+//     var author = {
+//         id: req.user._id,
+//         username: req.user.username,
+//     };
+//     var date = req.body.createdAt;
+//     var newPost = {name: name, image: image, description: description, date: date, author:author};
+//     //create new post
+//     Post.create(newPost, function(err, newlyCreated){
+//         if(err){
+//             console.log(err);
+//         } else {
+//             console.log(newlyCreated);
+//             req.flash("success", "Blog post Successfully Created!");
+//             return res.redirect("/posts");
+//         }
+//     });
+// });
 
 
 //NEW 
